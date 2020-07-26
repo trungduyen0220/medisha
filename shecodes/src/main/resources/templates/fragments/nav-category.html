@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<th:block th:fragment="navCategoryResources">
+<div style="text-align: left;" class="col-md-2">
+        <th:block th:each="category : ${listCategory}">
+            <div class="list-group" style="margin-left:0; width:180px;">
+                <a th:href="@{category(id=${category.id})}" class="list-group-item" th:text="${category.name}"></a> 
+            </div>
+        </th:block>
+    </div>
+</th:block>
+</html>

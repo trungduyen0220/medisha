@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<head>
+<th:block th:insert="fragments/header::commonResources">Common resource</th:block>
+<title th:text="${drugStore.storeName}"></title>
+</head>
+<body>
+	<div class="site-wrap">
+		<th:block th:insert="fragments/menu-header::menuHeaderResources">menuHeaderResources</th:block>
+		<!-- Page Content -->
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2">
+					<h1 th:text="${drugStore.storeName}"></h1>
+					<img style="height: 20px;" src="../../img/icons/bright-star.jpg"></img>
+					<img style="height: 20px;" src="../../img/icons/bright-star.jpg"></img>
+					<img style="height: 20px;" src="../../img/icons/bright-star.jpg"></img>
+					<img style="height: 20px;" src="../../img/icons/bright-star.jpg"></img>
+					<img style="height: 20px;" src="../../img/icons/bright-star.jpg"></img>
+					<br> <span style="font-size: 11px;'"
+						th:text="${drugStore.description}"></span>
+					<hr>
+					<img style="height: 100px;" src="../../img/cer.jpg"></img>
+				</div>
+				<div class="col-lg-10">
+					<div class="row">
+						<div class="col-lg-12">
+							<p style="float: right;">Những vị thuốc có trong đơn thuốc
+								của bạn, 
+						<a style="float:right;height:50px;color:#4f7826;margin-right:10px;" th:href="@{/submitOrder}" value="đặt theo đơn thuốc"><strong> đặt theo đơn thuốc</strong></a>
+</p>
+						</div>
+					</div>
+					<th:block th:each="medicine : ${drugStore.lstMedicineByStore}">
+						<a
+							th:href="@{/medicine?medicineId={medicineId}(medicineId=${medicine.medicineId})}">
+							<div class="col-sm-3 col-lg-3 col-md-3 center-block">
+								<div>
+									<div class="item">
+										<span class="notify-badge"
+											th:text="${medicine.salePercent} + '%'"></span> <img
+											th:src="'../../img/' + ${medicine.image} + '.jpg'" alt=""
+											style="display: block; height: 300px; width: 200px;">
+									</div>
+									<div class="caption">
+										<span style="color: blue;" th:text="${medicine.medicineName}"></span>
+										<p style="text-decoration: line-through"
+											th:text="'Giá thị trường:' + ${medicine.price} + 'đ'">
+										<p th:text="'Còn:'+ ${medicine.realPrice} + 'đ'"></p>
+									</div>
+								</div>
+							</div>
+						</a>
+					</th:block>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<p>Những loại thuốc đang có tại cửa hàng</p>
+				</div>
+			</div>
+			<div class="col-md-12 block-3 products-wrap">
+				<div class="nonloop-block-3 owl-carousel">
+
+					<th:block th:each="medicine : ${drugStore.lstMedicineByStore}">
+						<a
+							th:href="@{/medicine?medicineId={medicineId}(medicineId=${medicine.medicineId})}">
+							<div>
+								<div class="item">
+									<span class="notify-badge"
+										th:text="${medicine.salePercent} + '%'"></span> <img
+										th:src="'../../img/' + ${medicine.image} + '.jpg'" alt=""
+										style="display: block; height: 300px; width: 200px;">
+								</div>
+								<div class="caption">
+									<span style="color: blue;" th:text="${medicine.medicineName}"></span>
+									<p style="text-decoration: line-through; color: black"
+										th:text="'Giá thị trường:' + ${medicine.price} + 'đ'">
+									<p style="color: black"
+										th:text="'Còn:'+ ${medicine.realPrice} + 'đ'"></p>
+								</div>
+							</div>
+						</a>
+					</th:block>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="col-lg-12">
+				<div class="title-section">
+					<h2>
+						<strong class="text-primary">Nhận xét của khách hàng</strong>
+					</h2>
+				</div>
+				<div class="testimony">
+					<blockquote>
+						<img src="../../img/person_3.jpg" alt="Image" class="img-fluid">
+						<p>&ldquo;Trải nghiệm tốt nhất trong các chỗ bán hàng mình
+							từng mua. Tiện lợi, giá cả phải chăng lại được miễn phí ship, quá
+							tuyệt vời.&rdquo;</p>
+					</blockquote>
+
+					<p class="author">&mdash; Duyen Nguyen</p>
+					<img style="height: 30px; width: 30px !important" src="../../img/icons/bright-star.jpg"></img>
+					<img style="height: 30px; width: 30px !important" src="../../img/icons/bright-star.jpg"></img>
+					<img style="height: 30px; width: 30px !important" src="../../img/icons/bright-star.jpg"></img>
+					<img style="height: 30px; width: 30px !important" src="../../img/icons/bright-star.jpg"></img>
+					<img style="height: 30px; width: 30px !important" src="../../img/icons/bright-star.jpg"></img>
+				</div>
+			</div>
+		</div>
+	</div>
+	<th:block th:insert="fragments/menu-footer::menuFooterResources">footerResources</th:block>
+	<th:block th:insert="fragments/footer::footerResources">Common resource</th:block>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<head>
+<title>BakamedicineShop Homepage</title>
+
+</head>
+<th:block th:fragment="listMedicineResources">
+	<div class="container">
+		<th:block th:each="drugStore : ${listDrugStore}">
+			<div class="row">
+				<div class="title-section col-12">
+					<h2 style="float:left">
+						<a th:href="@{/drugStore?storeId={storeId}(storeId=${drugStore.storeId})}" th:text="${drugStore.storeName}"></a>
+						<span style="font-size:15px" th:text="' có '"></span>
+						<span style="font-size:15px" th:text="${drugStore.numberOfMedicine}"></span>
+						<span style="font-size:15px" th:text="' sản phẩm đáp ứng yêu cầu của bạn.'"></span>
+						<th:block th:if="${searchTag == 1}">
+						<i><a style="font-size:15px; color: green;" th:text="${drugStore.totalPrice} + 'đ'"></a></i>
+						</th:block>
+					</h2>
+					<a style="float:right;height:50px;color:#4f7826;margin-right:10px;" th:href="@{/submitOrder?storeId={storeId}(storeId=${drugStore.storeId})}" value="Hãy đặt thuốc từ nhà hàng này">Cho tất cả vào đơn hàng</a>
+				</div>
+			</div>
+			<!-- <div class="col-sm-3 col-lg-3 col-md-3 center-block">
+						<div class="thumbnail">
+							<div class="item">
+								<span class="notify-badge"
+									th:text="${medicine.salePercent} + '%'"></span> <img
+									th:src="'../../img/' + ${medicine.image} + '.jpg'" alt=""
+									style="display: block; height: 300px; width: 200px;">
+							</div>
+							<div class="caption">
+								<span style="color: blue;" th:text="${medicine.medicineName}"></span>
+								<p style="text-decoration: line-through"
+									th:text="'Giá thị trường:' + ${medicine.price} + 'đ'">
+								<p th:text="'Còn:'+ ${medicine.realPrice} + 'đ'"></p>
+							</div>
+						</div>
+					</div>
+					 -->
+			<div class="row">
+				<div class="col-md-12 block-3 products-wrap">
+					<div class="nonloop-block-3 owl-carousel">
+						<th:block th:each="medicine : ${drugStore.lstMedicineByStore}">
+							<a th:href="@{/medicine?medicineId={medicineId}(medicineId=${medicine.medicineId})}">
+								<div>
+									<div class="item">
+										<span class="notify-badge"
+											th:text="${medicine.salePercent} + '%'"></span> <img
+											th:src="'../../img/' + ${medicine.image} + '.jpg'" alt=""
+											style="display: block; height: 300px; width: 200px;">
+									</div>
+									<div class="caption">
+										<span style="color: blue;" th:text="${medicine.medicineName}"></span>
+										<p style="text-decoration: line-through; color:black"
+											th:text="'Giá thị trường:' + ${medicine.price} + 'đ'">
+										<p style="color:black" th:text="'Còn:'+ ${medicine.realPrice} + 'đ'"></p>
+									</div>
+								</div>
+							</a>
+						</th:block>
+					</div>
+				</div>
+			</div>
+		</th:block>
+	</div>
+</th:block>
+</html>

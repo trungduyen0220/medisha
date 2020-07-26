@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<head>
+<title>Manage medicine</title>
+
+<th:block th:insert="fragments/header::commonResources">Common resource</th:block>
+<style type="text/css">
+form {
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+}
+</style>
+<script>
+	function myFunction() {
+		if (confirm("Bạn có thật sự muốn xóa quyển sách này không?") === true) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+</script>
+</head>
+
+<body>
+	<th:block th:insert="fragments/menu-header::menuHeaderResources">menuHeaderResources</th:block>
+	<!-- Page Content -->
+	<div class="container">
+		<div class="row">
+			<th:block th:insert="fragments/nav-profile::navProfileResources">navProfileResources</th:block>
+
+			<div style="text-align: left" class="col-md-12">
+				<div class="container">
+					<!-- Portfolio Item Heading -->
+					<div class="row">
+						<div class="col-lg-12">
+							<h1 class="page-header">Quản lí sách</h1>
+						</div>
+					</div>
+					<!-- /.row -->
+
+					<!-- Portfolio Item Row -->
+
+					<div class="row">
+						<div class="col-lg-12">
+							<form action="Book" method="get">
+								<input type="text" style="width: 400px; height: 33px;"
+									name="searchText" th:value="${searchText}"> <select
+									style="height: 33px" name="searchType">
+									<th:block th:if="${searchType == 'Author'}">
+										<option selected value="Book">Tên sách</option>
+										<option value="Author">Tác giả</option>
+									</th:block>
+									<th:block th:if="${searchType != 'Author'}">
+										<option selected value="Book">Tên sách</option>
+										<option value="Author">Tác giả</option>
+									</th:block>
+								</select>
+								<button type="submit" class="btn btn-primary">Tìm kiếm</button>
+							</form>
+							<a th:href="@{/admin/addBook}"> <input type="button"
+								style="height: 35px; width: 150px"
+								class="btn btn-normal navbar-form navbar-right"
+								value="Thêm sách"></a>
+
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Mã sách</th>
+										<th>Tên sách</th>
+										<th>Tác giả</th>
+										<th>Giá</th>
+										<th>Giảm giá</th>
+										<th>Minh họa</th>
+										<th>Mô tả sách</th>
+										<th>Số lượng</th>
+										<th>Chỉnh sửa</th>
+										<th>Xóa</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="book : ${listBook}">
+										<tr>
+											<td th:text="${book.bookId}"></td>
+											<td th:text="${book.bookTitle}"></td>
+											<td th:text="${book.author}"></td>
+											<td th:text="${book.price}">đ</td>
+											<td th:text="${book.salePercent}"></td>
+											<td><img class="slide-image"
+												th:src="@{'../../' + ${book.illuLink}}" alt=""
+												style="width: 100px"></td>
+											<td th:text="${book.description}"></td>
+											<td th:text="${book.quantity}"></td>
+											<td><a
+												th:href="@{/admin/editBook?bookId={bookId}(bookId=${book.bookId})}"><input
+													type="button" class="btn btn-link" value="Sửa"></a></td>
+
+											<td><a
+												th:href="@{/admin/deleteBook?bookId={bookId}(bookId=${book.bookId})}"
+												class="btn btn-danger">Delete</a></td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+							<div class="row text-center">
+								<div class="col-lg-12">
+									<cus:PagerTag function="${function}" lastPage="${lastPage}"
+										pageIndex="${pageIndex}" searchText="${searchText}"
+										searchType="${searchType}"></cus:PagerTag>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<th:block th:insert="fragments/menu-footer::menuFooterResources">footerResources</th:block>
+	<th:block th:insert="fragments/footer::footerResources">Common resource</th:block>
+
+</body>
+
+</html>
+

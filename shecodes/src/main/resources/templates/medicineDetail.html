@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<head>
+<title>Medicine detail</title>
+
+<th:block th:insert="fragments/header::commonResources">Common resource</th:block>
+
+</head>
+<body>
+	<th:block th:insert="fragments/menu-header::menuHeaderResources">menuHeaderResources</th:block>
+	<!-- Page Content -->
+	<div class="container">
+
+		<div class="row">
+			<th:block th:insert="fragments/nav-profile::navProfileResources">navProfileResources</th:block>
+			<div style="text-align: left" class="col-md-12">
+				<div class="container">
+					<!-- Portfolio Item Heading -->
+					<div class="row">
+						<div class="col-lg-12">
+							<h1 class="page-header">Chi tiết đơn hàng</h1>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-12">
+							<table class="table table-bmedicineed">
+								<thead>
+									<!--forEach medicine-->
+									<tr>
+										<th>Mã đơn hàng</th>
+										<th>Minh Họa</th>
+										<th>Tên sách</th>
+										<th>Số lượng</th>
+										<th>Đơn giá</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="medicine : ${medicine}">
+										<tr>
+											<td th:text="${medicineId} + '-' + ${medicine.medicineId}"></td>
+											<td><img th:src="@{'../../' + ${medicine.img}}" alt="" style="display: block; height: 300px; width: 200px"></td>
+											<td th:text="${medicine.medicineName} + ' - ' + ${medicine.medicineUnit}"></td>
+											<td th:text="${medicineDetail.price} + 'đ'"></td>
+										</tr>
+									</th:block>
+									<tr>
+										<td colspan="4">Tổng</td>
+										<td th:text="${total} + 'đ'"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<th:block th:insert="fragments/menu-footer::menuFooterResources">footerResources</th:block>
+	<th:block th:insert="fragments/footer::footerResources">Common resource</th:block>
+</body>
+</html>
+

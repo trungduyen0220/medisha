@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<head>
+<title>List of orders</title>
+
+<th:block th:insert="fragments/header::commonResources">Common resource</th:block>
+
+</head>
+
+<body>
+	<th:block th:insert="fragments/menu-header::menuHeaderResources">menuHeaderResources</th:block>
+	<div class="container">
+		<div class="row">
+			<th:block th:insert="fragments/nav-profile::navProfileResources">navProfileResources</th:block>
+
+			<div style="text-align: left" class="col-md-12">
+				<div class="container">
+					<!-- Portfolio Item Heading -->
+					<div class="row">
+						<div class="col-lg-12">
+							<h1 class="page-header">Quản lí đơn hàng</h1>
+						</div>
+					</div>
+					<!-- /.row -->
+
+					<!-- Portfolio Item Row -->
+
+					<div class="row">
+						<div class="col-lg-12">
+							<table class="table table-bordered">
+								<thead>
+									<!--forEach Order-->
+									<tr>
+										<th>Mã đơn hàng</th>
+										<th>Người dùng</th>
+										<th>Ngày tạo</th>
+										<th>Địa chỉ chuyển hàng</th>
+										<th>Trạng thái</th>
+										<th>Cập nhật trạng thái</th>
+										<th>Chi tiết</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="order : ${orderList}">
+										<tr>
+											<td th:text="${order.orderID}"></td>
+											<td th:text="${order.name}"></td>
+											<td th:text="${order.dateCreated}"></td>
+											<td th:text="${order.shippingAddress}"></td>
+											<th:block th:if="${order.status == 'Đã nhận'}">
+												<td><div style="color: orange" th:text="${order.status}"></div></td>
+											</th:block>
+											<th:block th:if="${order.status == 'Đang vận chuyển'}">
+												<td><div style="color: blue" th:text="${order.status}"></div></td>
+											</th:block>
+											<th:block th:if="${order.status == 'Hoàn thành'}">
+												<td><div style="color: green" th:text="${order.status}"></div></td>
+											</th:block>
+											<td>
+												<form method="post"
+													th:action="@{changeOrderStatus?orderID={orderID}(orderID=${order.orderID})}"
+													th:object="${order.status}"
+													th:name="status"
+													>
+													<select name="status">
+														<th:block th:if="${order.status == 'Đã nhận'}">
+															<option value="Đã nhận" selected>Đã nhận</option>
+															<option value="Đang vận chuyển">Đang vận chuyển</option>
+															<option value="Hoàn thành">Hoàn thành</option>
+														</th:block>
+														<th:block th:if="${order.status == 'Đang vận chuyển'}">
+															<option value="Đã nhận">Đã nhận</option>
+															<option value="Đang vận chuyển" selected>Đang
+																vận chuyển</option>
+															<option value="Hoàn thành">Hoàn thành</option>
+														</th:block>
+														<th:block th:if="${order.status == 'Hoàn thành'}">
+															<option value="Đã nhận">Đã nhận</option>
+															<option value="Đang vận chuyển">Đang vận chuyển</option>
+															<option value="Hoàn thành" selected>Hoàn thành</option>
+														</th:block>
+													</select> <input type="submit" value="Cập nhật">
+												</form>
+											</td>
+											<td><a th:href="@{orderDetail(id=${order.orderID})}">Chi tiết</a></td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<th:block th:insert="fragments/menu-footer::menuFooterResources">footerResources</th:block>
+	<th:block th:insert="fragments/footer::footerResources">Common resource</th:block>
+</body>
+
+</html>
+

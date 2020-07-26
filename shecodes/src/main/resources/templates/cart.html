@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<head>
+<title>Cart</title>
+<th:block th:insert="fragments/header::commonResources">Common resource</th:block>
+</head>
+<body>
+	<div class="site-wrap">
+		<th:block th:insert="fragments/menu-header::menuHeaderResources">menuHeaderResources</th:block>
+		<div class="container">
+			<div class="row">
+				<div style="text-align: left" class="col-md-12">
+					<div class="container">
+						<!-- Portfolio Item Heading -->
+						<div class="row">
+							<div class="col-lg-12">
+								<h1 class="page-header">Chi tiết đơn hàng</h1>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<table class="table table-bmedicineed">
+									<thead>
+										<!--forEach medicine-->
+										<tr>
+											<th>Mã thuốc</th>
+											<th>Hình ảnh</th>
+											<th>Tên thuốc</th>
+											<th>Đơn vị</th>
+											<th>Số lượng</th>
+											<th>Đơn giá</th>
+										</tr>
+									</thead>
+									<tbody>
+										<th:block th:each="medicine : ${lstMedicine}">
+											<tr>
+												<td th:text="${medicine.medicineId}"></td>
+												<td><img
+											th:src="'../../img/' + ${medicine.image} + '.jpg'" alt=""
+											style="display: block; height: 120px; width: 80px;"></td>
+												<td th:text="${medicine.medicineName}"></td>
+												<td th:text="${medicine.medicineUnit}"></td>
+												 <td th:text="${medicine.medicineAmount}"></td>
+												 <td th:text="${medicine.price} + 'đ'"></td>
+												 
+											</tr>
+										</th:block>
+										<tr>
+											<td colspan="5">Tổng</td>
+											 <td th:text="${totalPrice} + 'đ'"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<th:block th:insert="fragments/menu-footer::menuFooterResources">footerResources</th:block>
+	<th:block th:insert="fragments/footer::footerResources">Common resource</th:block>
+</body>
+</html>

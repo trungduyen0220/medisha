@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<head>
+<title>Go to store</title>
+<th:block th:insert="fragments/header::commonResources">Common resource</th:block>
+</head>
+<body>
+	<div class="site-wrap">
+	<th:block th:insert="fragments/menu-header::menuHeaderResources">menuHeaderResources</th:block>
+	<!-- Page Content -->
+	<div class="container">
+		<div class="row">
+			<!--forEach-->
+			<div class="col-md-12">
+				<th:block th:insert="fragments/listMedicine::listMedicineResources">listMedicineResources</th:block>
+			</div>
+		</div>
+	</div>
+	<th:block th:insert="fragments/menu-footer::menuFooterResources">footerResources</th:block>
+	<th:block th:insert="fragments/footer::footerResources">Common resource</th:block>
+
+	</div>
+</body>
+
+
+</html>
